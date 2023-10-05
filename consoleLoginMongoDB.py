@@ -28,6 +28,11 @@ def singIn():
             do = True
 
 def logIn():
+    """
+    This function prompts the user to enter a username and password, and checks if they match the records in a MongoDB collection.
+    If the username or password is incorrect, the user is prompted to try again.
+    If the username and password are correct, the function prints a message associated with the user's account.
+    """
     do = True
     while do:
         do = False
