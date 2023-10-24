@@ -18,7 +18,7 @@ while go:
     go = False
     print("Invalid option !!!\n")
     print("1-Log in")
-    print("2-Sing in")
+    print("2-Sign in")
 
     entry = input()
     go = False
