@@ -3,3 +3,4 @@ A simple Python console aplication that can register new users or get ther regis
 
 # How it works
 there is a Menu python script that asks what is intended to do, being the options Log in and Sign in, and calls a apropriate funcion.
+that will or start a procedure to create a new user or access information about a user.
