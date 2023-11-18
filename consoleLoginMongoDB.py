@@ -7,6 +7,10 @@ db = client.test1
 colection = db.users
 
 def singIn():
+    """
+    This function allows a user to sign in by entering their username, password, and a welcome message. 
+    If the username already exists in the database, the function prompts the user to enter a different username.
+    """
     do = True
     while do:
         do = False
