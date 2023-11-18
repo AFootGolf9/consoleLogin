@@ -1,12 +1,16 @@
 import pymongo
 
-client = pymongo.MongoClient("")
+client = pymongo.MongoClient("mongodb+srv://user:password2@cluster0.w2q60oh.mongodb.net/?retryWrites=true&w=majority")
 
 db = client.test1
 
 colection = db.users
 
 def singIn():
+    """
+    This function allows a user to sign in by entering their username, password, and a welcome message. 
+    If the username already exists in the database, the function prompts the user to enter a different username.
+    """
     do = True
     while do:
         do = False
@@ -15,8 +19,8 @@ def singIn():
         result = colection.find_one({"name" : userName})
 
         if result  is None:
-            password = input("Password (once chosen you can't change) : ")
-            message  = input("Write a welcome message : ")
+            password = input("coloque uma senha mas lembre-se vc deve se lembrar : ")
+            message  = input("coloque uma mensagem de boas vindas : ")
             document = {
                 "name" : userName,
                 "password" : password,
@@ -24,7 +28,7 @@ def singIn():
             }
             colection.insert_one(document)
         else:
-            print("The user already exists, try another Username :")
+            print("O usuario já existe, tente outro nome:")
             do = True
 
 def logIn():
@@ -41,7 +45,7 @@ def logIn():
         result = colection.find_one({"name" : userName})
 
         if result is None:
-            print("The username don't exists, try again !!!")
+            print("O usuario não existe, tente novamente!!!")
             do = True
         else:
             do2 = True
@@ -49,7 +53,7 @@ def logIn():
                 do2 = False
                 password = input("password : ")
                 if password != result["password"]:
-                    print("Incorect password, try again !!!")
+                    print("senha incoreta, tente novamente!!!")
                     do2 = True
                 else: 
                     print(result["message"])
