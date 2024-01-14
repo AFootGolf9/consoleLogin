@@ -27,11 +27,11 @@ def singIn():
         if result  is None:
             password = input("Password (once chosen you can't change) : ")
             password = password.encode("utf-8")
-            password = str(hashlib.sha256(password))
+            password = hashlib.sha256(password)
             message  = input("Write a welcome message : ")
             document = {
                 "name" : userName,
-                "password" : password,
+                "password" : password.hexdigest(),
                 "message" : message
             }
             colection.insert_one(document)
@@ -61,7 +61,8 @@ def logIn():
                 do2 = False
                 password = input("password : ")
                 password = password.encode("utf-8")
-                if str(hashlib.sha256(password)) != result["password"]:
+                password = hashlib.sha256(password)
+                if password.hexdigest() != result["password"]:
                     print("Incorect password, try again !!!")
                     do2 = True
                 else: 
