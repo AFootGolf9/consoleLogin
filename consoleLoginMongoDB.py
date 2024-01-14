@@ -23,7 +23,7 @@ def singIn():
             message  = input("Write a welcome message : ")
             document = {
                 "name" : userName,
-                "password" : password,
+                "password" : hash(password),
                 "message" : message
             }
             colection.insert_one(document)
@@ -52,7 +52,7 @@ def logIn():
             while do2:
                 do2 = False
                 password = input("password : ")
-                if password != result["password"]:
+                if hash(password) != result["password"]:
                     print("Incorect password, try again !!!")
                     do2 = True
                 else: 
