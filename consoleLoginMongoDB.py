@@ -1,6 +1,12 @@
 import pymongo
+from configparser import ConfigParser
+import hashlib
 
-client = pymongo.MongoClient("")
+file = "config.ini"
+config = ConfigParser()
+config.read(file)
+
+client = pymongo.MongoClient(config.get("MongoDB", "url"))
 
 db = client.test1
 
@@ -20,10 +26,12 @@ def singIn():
 
         if result  is None:
             password = input("Password (once chosen you can't change) : ")
+            password = password.encode("utf-8")
+            password = str(hashlib.sha256(password))
             message  = input("Write a welcome message : ")
             document = {
                 "name" : userName,
-                "password" : hash(password),
+                "password" : password,
                 "message" : message
             }
             colection.insert_one(document)
@@ -52,7 +60,8 @@ def logIn():
             while do2:
                 do2 = False
                 password = input("password : ")
-                if hash(password) != result["password"]:
+                password = password.encode("utf-8")
+                if str(hashlib.sha256(password)) != result["password"]:
                     print("Incorect password, try again !!!")
                     do2 = True
                 else: 
