@@ -2,8 +2,8 @@ import pymongo
 import hashlib
 
 class UserCollection():
-    def __init__(self, DB):
-        self.collection = DB.users
+    def __init__(self, db):
+        self.collection = db.users
 
     def createUser(self, name, password):
         """
@@ -46,7 +46,9 @@ class UserCollection():
         Raises:
             Exception: If the user does not exist.
         """
+        
         result = self.collection.find_one({"name" : name})
+        
         if result is None:
             raise Exception("User does not exist")
         else:
@@ -70,11 +72,11 @@ class UserCollection():
         Returns:
             None
         """
-        result = self.collection.find_one({"name" : name})
-        if result is None:
+        
+        result = self.collection.delete_one({"name" : name})
+        
+        if result.deleted_count == 0:
             raise Exception("User does not exist")
-        else:
-            self.collection.delete_one({"name" : name})
 
     def changePassword(self, name, password):
         """
@@ -90,13 +92,13 @@ class UserCollection():
         Returns:
             None
         """
-        result = self.collection.find_one({"name" : name})
-        if result is None:
+        
+        password = password.encode("utf-8")
+        password = hashlib.sha256(password)
+        result = self.collection.update_one({"name" : name}, {"$set" : {"password" : password.hexdigest()}})
+        
+        if result.modified_count == 0:
             raise Exception("User does not exist")
-        else:
-            password = password.encode("utf-8")
-            password = hashlib.sha256(password)
-            self.collection.update_one({"name" : name}, {"$set" : {"password" : password.hexdigest()}})
     
     def changeAuthorization(self, name, authorization):
         """
@@ -112,8 +114,9 @@ class UserCollection():
         Returns:
             None
         """
-        result = self.collection.find_one({"name" : name})
-        if result is None:
+        
+        result = self.collection.update_one({"name" : name}, {"$set" : {"authorization" : authorization}})
+        
+        if result.modified_count == 0:
             raise Exception("User does not exist")
-        else:
-            self.collection.update_one({"name" : name}, {"$set" : {"authorization" : authorization}})
+            

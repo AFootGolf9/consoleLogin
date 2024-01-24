@@ -9,3 +9,6 @@ build/
 
 # Build
 config.ini
+
+# my Stupidity
+dumbTests.py
