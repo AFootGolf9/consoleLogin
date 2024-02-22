@@ -12,3 +12,6 @@ config.ini
 
 # my Stupidity
 dumbTests.py
+
+# vscode
+.vscode/
