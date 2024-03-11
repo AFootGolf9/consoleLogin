@@ -6,38 +6,38 @@ class Connection():
     def __init__(self, string):
         self.client = MongoClient(string)
         self.db = self.client.test
-        self.Users = User.UserCollection(self.db)
-        self.Products = Product.ProductCollection(self.db)
+        self.users = User.UserCollection(self.db)
+        self.products = Product.ProductCollection(self.db)
 
     def createUser(self, name, password):
-        self.Users.createUser(name, password)
+        self.users.createUser(name, password)
 
     def autenticateUser(self, name, password):
-        return self.Users.authenticateUser(name, password)
+        return self.users.authenticateUser(name, password)
     
     def deleteUser(self, name):
-        self.Users.deleteUser(name)
+        self.users.deleteUser(name)
 
     def changePassword(self, name, password):
-        self.Users.changePassword(name, password)
+        self.users.changePassword(name, password)
     
     def changeAuthorization(self, name, authorization):
-        self.Users.changeAuthorization(name, authorization)
+        self.users.changeAuthorization(name, authorization)
 
     def createProduct(self, name, price, description):
-        self.Products.createProduct(name, price, description)
+        self.products.createProduct(name, price, description)
 
     def deleteProduct(self, name):
-        self.Products.deleteProduct(name)
+        self.products.deleteProduct(name)
 
     def changePrice(self, name, price):
-        self.Products.changePrice(name, price)
+        self.products.changePrice(name, price)
 
     def changeDescription(self, name, description):
-        self.Products.changeDescription(name, description)
+        self.products.changeDescription(name, description)
 
     def getProduct(self, name):
-        return self.Products.getProduct(name)
+        return self.products.getProduct(name)
     
-    def getAllProducts(self):
-        return self.Products.getAllProducts()
+    def getAllproducts(self):
+        return self.products.getAllproducts()

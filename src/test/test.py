@@ -17,6 +17,8 @@ def test_connection():
         raise Exception("Connection to MongoDB failed")
     connection.createUser("test", "test")
     connection.deleteUser("test")
+    connection.products.createProduct("test", 1.0, "test")
+    connection.products.deleteProduct("test")
     print('ok')
 
 test_connection()
